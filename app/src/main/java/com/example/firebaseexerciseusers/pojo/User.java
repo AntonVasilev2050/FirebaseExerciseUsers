@@ -10,8 +10,8 @@ public class User {
     }
 
     public User(String name, String lastName, int age, String sex) {
-        this.lastName = lastName;
         this.name = name;
+        this.lastName = lastName;
         this.age = age;
         this.sex = sex;
     }

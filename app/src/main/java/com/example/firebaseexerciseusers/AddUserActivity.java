@@ -47,14 +47,14 @@ public class AddUserActivity extends AppCompatActivity {
             String sex = spinnerSex.getSelectedItem().toString();
 
             User user = new User(name, lastName, age, sex);
-            Log.i("myStr", name + " " + lastName + " " + age + " " + sex);
                     db.collection("usersExercise").add(user)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(AddUserActivity.this, "Пользователь успешно добавлен", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
+//                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                    startActivity(intent);
+                                    finish();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -67,10 +67,11 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     private boolean isFilled(){
-        if(!editTextName.getText().toString().isEmpty() && !editTextLastName.getText().toString().isEmpty() && !editTextAge.getText().toString().isEmpty()){
+        if(!editTextName.getText().toString().isEmpty() && !editTextLastName.getText().toString().isEmpty()
+                && !editTextAge.getText().toString().isEmpty() && (Integer.parseInt(editTextAge.getText().toString()) > 0)){
             return true;
         }else {
-            Toast.makeText(this, "Все поля должны быть заполнены", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Все поля должны быть правильно заполнены", Toast.LENGTH_SHORT).show();
             return false;
         }
     }

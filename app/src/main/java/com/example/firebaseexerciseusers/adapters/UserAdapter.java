@@ -11,14 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.firebaseexerciseusers.R;
 import com.example.firebaseexerciseusers.pojo.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private List<User> users;
 
+    public UserAdapter() {
+        this.users = new ArrayList<>();
+    }
+
     public void setUsers(List<User> users) {
         this.users = users;
+        notifyDataSetChanged();
     }
 
     @NonNull

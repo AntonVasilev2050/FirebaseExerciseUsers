@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private List<User> users;
     private RecyclerView recyclerView;
     private UserAdapter adapter;
     FirebaseFirestore db;
@@ -36,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
-        users = new ArrayList<>();
         adapter = new UserAdapter();
-        adapter.setUsers(users);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         db = FirebaseFirestore.getInstance();
@@ -47,34 +44,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(value != null){
-                    users.removeAll(users);
-                    for(QueryDocumentSnapshot documentSnapshot: value) {
-                        users.add(documentSnapshot.toObject(User.class));
-                    }
-                    adapter.notifyDataSetChanged();
+                    List<User> users = value.toObjects(User.class);
+                    adapter.setUsers(users);
                 }
             }
         });
-
-
-//        db.collection("usersExercise")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if(task.isSuccessful()){
-//                            users.removeAll(users);
-//                            for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-//                                users.add(documentSnapshot.toObject(User.class));
-//                            }
-//                            adapter.notifyDataSetChanged();
-//                            Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-//                        }else {
-//                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-
     }
 
     public void onClickButtonAddUser(View view) {

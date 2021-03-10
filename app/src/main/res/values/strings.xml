@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FirebaseExerciseUsers</string>
+    <string name="add_user">Кнопка добавить пользователя</string>
+
+    <array name="sex">
+        <item>Мужской</item>
+        <item>Женский</item>
+        <item>Еще не определилось</item>
+    </array>
+</resources>
